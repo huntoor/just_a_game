@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckqgg0yu11uxk"]
+
+[ext_resource type="PackedScene" uid="uid://d2njb06205mah" path="res://Player/player.tscn" id="1_mkyx5"]
+[ext_resource type="Texture2D" uid="uid://lrrm6abyjb1b" path="res://icon.svg" id="2_gr4yc"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cvik1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2778v"]
+size = Vector2(116, 118)
+
+[node name="World" type="Node2D"]
+
+[node name="RigidBody2D" type="StaticBody2D" parent="."]
+position = Vector2(455, 626)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("WorldBoundaryShape2D_cvik1")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(70.6868, 0.275521)
+texture = ExtResource("2_gr4yc")
+
+[node name="RigidBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-3, 631)
+rotation = 1.53755
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("WorldBoundaryShape2D_cvik1")
+
+[node name="RigidBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(1153, 631)
+rotation = -1.5708
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D4"]
+shape = SubResource("WorldBoundaryShape2D_cvik1")
+
+[node name="RigidBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(1153, -13)
+rotation = -3.14159
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D5"]
+shape = SubResource("WorldBoundaryShape2D_cvik1")
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="."]
+position = Vector2(857, 548)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D3"]
+texture = ExtResource("2_gr4yc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3"]
+shape = SubResource("RectangleShape2D_2778v")
+
+[node name="Player" parent="." instance=ExtResource("1_mkyx5")]
+position = Vector2(492, 421)
