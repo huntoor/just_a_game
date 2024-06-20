@@ -1,9 +1,6 @@
 extends CharacterBody2D
 
-const RUNSPEED = 650.0
-const WALLPUSH = 550.0
 const AIRFRICTION = 0.9
-const DASHSPEED = 2000.0
 const ACCELERATION = 50.0
 const FRICTION = 70.0
 
@@ -13,6 +10,9 @@ const FRICTION = 70.0
 @export var jump_time_to_descent : float = 0.3
 
 
+@onready var run_speed = 650.0
+@onready var wall_push = 550.0
+@onready var dash_speed = 2000.0
 @onready var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
@@ -66,15 +66,15 @@ func player_movement():
 	
 	if Input.is_action_just_pressed("dash_forward") and can_dash:
 		can_dash = false
-		velocity.x = direction * DASHSPEED
+		velocity.x = direction * dash_speed
 		$DashDelay.start()
 	else:	
 		if direction != 0:
 			# Accelerate Player
 			if is_on_floor():
-				velocity.x = move_toward(velocity.x, direction * RUNSPEED, ACCELERATION)
+				velocity.x = move_toward(velocity.x, direction * run_speed, ACCELERATION)
 			elif not is_on_floor():
-				velocity.x = move_toward(velocity.x, direction * RUNSPEED * AIRFRICTION, ACCELERATION)
+				velocity.x = move_toward(velocity.x, direction * run_speed * AIRFRICTION, ACCELERATION)
 		else:
 			# Adding Frection
 			velocity.x = move_toward(velocity.x, 0, FRICTION)
@@ -106,11 +106,12 @@ func wall_jump():
 			velocity.y = jump_velocity
 
 			if Input.is_action_pressed("move_left") and is_on_wall():
-				velocity.x = WALLPUSH	
+				velocity.x = wall_push	
 			elif Input.is_action_pressed("move_right") and is_on_wall():
-				velocity.x = -WALLPUSH
+				velocity.x = -wall_push
 
 			wall_coyote_timer = 0
 
 func _on_dash_delay_timeout():
 	can_dash = true
+	
